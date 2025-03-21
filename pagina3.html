@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página 3 - Actividades</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #FFFAF0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        header {
+            background-color: #FF69B4;
+            color: white;
+            padding: 20px;
+            font-size: 24px;
+            width: 100%;
+            text-align: center;
+        }
+        .titulo {
+            background-color: #FFD700;
+            width: 93%;
+            padding: 20px;
+            font-size: 24px;
+            margin-top: 20px;
+            border-radius: 10px;
+        }
+        .video {
+            width: 80%;
+            margin: 20px 0;
+        }
+        .contenedor-juegos {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .recuadro {
+            width: 150px;
+            height: 150px;
+            background-color: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .actividad {
+            width: 300px;
+            padding: 15px;
+            background-color: #1E90FF;
+            color: white;
+            font-size: 18px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            display: none;
+        }
+        .actividad:hover {
+            background-color: #0056b3;
+        }
+
+        .btn {
+            width: 200px;
+            padding: 15px;
+            font-size: 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>📌 Actividades del Módulo</h1>
+        <button class="btn" onclick="window.location.href='pagina2.html'">🔙 Volver</button>
+    </header>
+    <main>
+        <div class="titulo" id="titulo">🔤 Actividad 1</div>
+        <div class="video">
+            <iframe id="video" width="560" height="315" src="https://www.youtube.com/watch?v=gXZ3J5XeOXw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        <div class="contenedor-juegos">
+            <div class="recuadro" id="juego1" onclick="completarJuego(1)">🎮 Juego 1</div>
+            <div class="recuadro" id="juego2" onclick="completarJuego(2)">🎮 Juego 2</div>
+            <div class="recuadro" id="juego3" onclick="completarJuego(3)">🎮 Juego 3</div>
+        </div>
+        <button class="actividad" id="siguienteActividad" onclick="desbloquearActividad()" disabled>➡ Siguiente Actividad</button>
+    </main>
+    <script>
+        let actividadActual = 1;
+        const totalActividades = 10;
+        let juegosCompletados = 0;
+
+        // Objeto que contiene la información de cada actividad (video y juegos)
+        const actividades = {
+            1: {
+                video: "https://www.youtube.com/embed/DXziqv07mx8?si=thDBVPlQBQtV4W_S", // Video de la actividad 1
+                juegos: ["Juego 1.1", "Juego 1.2", "Juego 1.3"]
+            },
+            2: {
+                video: "https://www.youtube.com/embed/gXZ3J5XeOXw?si=eHZjHyNGLdcDA8Pl", // Video de la actividad 2
+                juegos: ["Juego 2.1", "Juego 2.2", "Juego 2.3"]
+            },
+            // Puedes agregar más actividades aquí, por ejemplo:
+            3: {
+                video: "https://www.youtube.com/embed/xyz9876", // Video de la actividad 3
+                juegos: ["Juego 3.1", "Juego 3.2", "Juego 3.3"]
+            }
+            // Y así sucesivamente...
+        };
+
+        // Función para completar un juego
+        function completarJuego(juego) {
+            let juegoElemento = document.getElementById("juego" + juego);
+            if (!juegoElemento.classList.contains("completado")) {
+                juegoElemento.style.backgroundColor = "#90EE90";
+                juegoElemento.classList.add("completado");
+                juegosCompletados++;
+            }
+            if (juegosCompletados === 3) {
+                document.getElementById("siguienteActividad").style.display = "block";
+                document.getElementById("siguienteActividad").disabled = false;
+            }
+        }
+
+        // Función para desbloquear la siguiente actividad
+        function desbloquearActividad() {
+            if (actividadActual < totalActividades) {
+                actividadActual++;
+                juegosCompletados = 0;
+                actualizarActividad();
+            } else {
+                alert("¡Felicidades! Has completado todas las actividades.");
+                window.location.href = "pagina4.html";
+            }
+        }
+
+        // Función para actualizar el contenido de la actividad actual
+        function actualizarActividad() {
+            const actividad = actividades[actividadActual];
+
+            // Cambiar el título
+            document.getElementById("titulo").innerText = "🔤 Actividad " + actividadActual;
+
+            // Cambiar el video
+            document.getElementById("video").src = actividad.video;
+
+            // Reseteo de juegos
+            for (let i = 1; i <= 3; i++) {
+                let juegoElemento = document.getElementById("juego" + i);
+                juegoElemento.innerText = actividad.juegos[i - 1];
+                juegoElemento.style.backgroundColor = "#ddd";
+                juegoElemento.classList.remove("completado");
+            }
+
+            // Ocultar el botón de siguiente actividad hasta que se completen los juegos
+            document.getElementById("siguienteActividad").style.display = "none";
+            document.getElementById("siguienteActividad").disabled = true;
+        }
+
+        // Inicializar la actividad 1 al cargar la página
+        actualizarActividad();
+    </script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Principal</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #FFFAF0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+        header {
+            background-color: #FF69B4;
+            color: white;
+            padding: 20px;
+            font-size: 24px;
+            text-align: center;
+        }
+        .contenedor-botones {
+            flex: 1;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 20px;
+        }
+        .lado-izquierdo {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .btn {
+            width: 200px;
+            padding: 15px;
+            font-size: 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        #docente {
+            background-color: #FFD700;
+        }
+        #estudiante {
+            background-color: #1E90FF;
+        }
+        #inicio {
+            background-color: #32CD32;
+            width: 250px;
+            align-self: flex-end;
+        }
+        .btn:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🎉 ¡Bienvenidos! 🎈</h1>
+    </header>
+    <main class="contenedor-botones">
+        <div class="lado-izquierdo">
+            <button class="btn" id="docente">👩‍🏫 DOCENTE</button>
+            <button class="btn" id="estudiante">👦 ESTUDIANTE</button>
+        </div>
+        <button class="btn" id="inicio">🚀 INICIO</button>
+    </main>
+    <script>
+        document.getElementById("inicio").addEventListener("click", function() {
+            window.location.href = "pagina2.html";
+        });
+    </script>
+</body>
+</html>
